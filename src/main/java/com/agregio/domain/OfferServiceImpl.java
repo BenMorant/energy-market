@@ -4,8 +4,11 @@ import com.agregio.database.OfferRepository;
 import com.agregio.database.entity.HourlyBlockEntity;
 import com.agregio.database.entity.OfferEntity;
 import com.agregio.domain.model.HourlyBlock;
+import com.agregio.domain.model.MarketType;
 import com.agregio.domain.model.Offer;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OfferServiceImpl implements OfferService {
@@ -21,6 +24,11 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public Offer create(Offer offer) {
         return toOffer(offerRepository.save(toOfferEntity(offer)));
+    }
+
+    @Override
+    public List<Offer> getByMarket(MarketType marketType) {
+        return offerRepository.findByMarketType(marketType).stream().map(this::toOffer).toList();
     }
 
     private Offer toOffer(OfferEntity offerEntity) {

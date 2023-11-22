@@ -27,7 +27,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -65,6 +67,28 @@ class OfferControllerTest {
                 ).andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(offerResponse), true));
         verify(offerService).create(any());
+        verifyNoMoreInteractions(offerService);
+
+
+    }
+
+    @Test
+    @DisplayName("should return offers for primary market")
+    void shouldReturnOfferResponsesForAMarket() throws Exception {
+        HourlyBlockResponse hourlyBlockResponse = new HourlyBlockResponse(1L, 1L, BigDecimal.TEN, BigDecimal.TWO, LocalDate.now(), 4);
+        OfferResponse offerResponse = new OfferResponse(1L, "PRIMARY", "offer1", List.of(hourlyBlockResponse));
+        HourlyBlock hourlyBlock = new HourlyBlock(1L, 1L, BigDecimal.TEN, BigDecimal.TWO, LocalDate.now(), 4);
+
+        String market = "primary";
+        Offer offer = new Offer(1L, MarketType.PRIMARY, "offer1", List.of(hourlyBlock));
+        when(offerService.getByMarket(any())).thenReturn(List.of(offer));
+        mockMvc
+                .perform(
+                        get("/offers").queryParam("market", market)
+                                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(List.of(offerResponse)), true));
+        verify(offerService).getByMarket(MarketType.PRIMARY);
         verifyNoMoreInteractions(offerService);
 
 
