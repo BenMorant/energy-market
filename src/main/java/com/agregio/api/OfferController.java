@@ -33,7 +33,7 @@ public class OfferController {
     }
 
     private OfferResponse toOfferResponse(Offer offer) {
-        return new OfferResponse(offer.id(), offer.marketType(), offer.name(), offer.hourlyBlocks().stream().map(this::toHourlyBlockResponse).toList());
+        return new OfferResponse(offer.id(), offer.marketType().name(), offer.name(), offer.hourlyBlocks().stream().map(this::toHourlyBlockResponse).toList());
     }
 
     private HourlyBlockResponse toHourlyBlockResponse(HourlyBlock hourlyBlock) {
