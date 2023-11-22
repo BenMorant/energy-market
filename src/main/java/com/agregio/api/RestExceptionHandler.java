@@ -1,5 +1,6 @@
 package com.agregio.api;
 
+import com.agregio.exception.HourlyBlockException;
 import com.agregio.exception.MarketTypeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(MarketTypeException.class)
     public ResponseEntity<Object> handleMarketTypeException(
             MarketTypeException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(HourlyBlockException.class)
+    public ResponseEntity<Object> handleHourlyBlockException(
+            HourlyBlockException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
     }
 }
