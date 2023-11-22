@@ -1,5 +1,6 @@
 package com.agregio.api;
 
+import com.agregio.exception.FarmTypeException;
 import com.agregio.exception.HourlyBlockException;
 import com.agregio.exception.MarketTypeException;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,14 @@ class RestExceptionHandlerTest {
         RestExceptionHandler handler = new RestExceptionHandler();
         HourlyBlockException exception = new HourlyBlockException("toto");
         ResponseEntity<Object> response = handler.handleHourlyBlockException(exception);
+        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
+    }
+
+    @Test
+    void testHandleFarmTypeException() {
+        RestExceptionHandler handler = new RestExceptionHandler();
+        FarmTypeException exception = new FarmTypeException("toto");
+        ResponseEntity<Object> response = handler.handleFarmTypeException(exception);
         assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
     }
 
