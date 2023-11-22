@@ -1,4 +1,4 @@
-package com.agregio.energymarket;
+package com.agregio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
