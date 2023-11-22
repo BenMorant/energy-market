@@ -1,4 +1,4 @@
-package com.agregio.domain.database.entity;
+package com.agregio.database.entity;
 
 import com.agregio.domain.model.MarketType;
 import jakarta.persistence.Column;

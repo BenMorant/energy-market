@@ -1,8 +1,8 @@
 package com.agregio.domain;
 
-import com.agregio.domain.database.OfferRepository;
-import com.agregio.domain.database.entity.HourlyBlockEntity;
-import com.agregio.domain.database.entity.OfferEntity;
+import com.agregio.database.OfferRepository;
+import com.agregio.database.entity.HourlyBlockEntity;
+import com.agregio.database.entity.OfferEntity;
 import com.agregio.domain.model.HourlyBlock;
 import com.agregio.domain.model.Offer;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.agregio.domain.database.entity;
+package com.agregio.database.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
